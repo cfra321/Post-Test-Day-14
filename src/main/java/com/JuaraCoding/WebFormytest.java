@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class WebFormytest {
     public static void main(String[] args) {
+
         System.setProperty("webdriver.chrome.driver", "C:\\juaracoding\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
 
@@ -32,26 +33,41 @@ public class WebFormytest {
         driver.manage().window().maximize();
         System.out.println("===Maximize Browser===");
 
+        // input first name
         driver.findElement(By.id("first-name")).sendKeys(firstName);
         System.out.println("1. nama depan = " + firstName);
 
+        // input last name
         driver.findElement(By.id("last-name")).sendKeys(lastName);
         System.out.println("2. nama belakang = " + lastName);
 
+        // input Job title
         driver.findElement(By.id("job-title")).sendKeys(Jobtitle);
         System.out.println("3. Job Title = " + Jobtitle);
 
-        driver.findElement(By.id("radio-button-2")).click();
-        System.out.println("4. Pilih Highest level of education = College");
 
-        driver.findElement(By.id("checkbox-3")).click();
-        System.out.println("5. pilih jenis kelamin");
+        // select check box
+        WebElement education = driver.findElement(By.xpath("//*[@id=\"radio-button-1\"]"));
+        education.click();
+        System.out.println("4. Education = " + education.isSelected());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
+        // select check gender
+        WebElement gender = driver.findElement(By.xpath("//*[@id=\"checkbox-1\"]"));
+        gender.click();
+        System.out.println("5. Sex = " + gender.isSelected());
+
+        // select experience
         WebElement selectExperiance = driver.findElement(By.id("select-menu"));
         Select experience = new Select(selectExperiance);
         experience.selectByValue("2");
         System.out.println("6. Test Select 2-4 experience");
 
+        // select calender
         driver.findElement(By.id("datepicker")).sendKeys(dob);
         System.out.println("7. tanggal = " +dob);
 
