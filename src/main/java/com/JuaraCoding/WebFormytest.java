@@ -7,8 +7,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
-
 import java.text.SimpleDateFormat;
+
+
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -24,8 +25,7 @@ public class WebFormytest {
         String firstName = faker.name().firstName();
         String lastName = faker.name().lastName();
         String Jobtitle = faker.job().title();
-        String dob = sdf.format(faker.date().birthday());
-
+        String dob = sdf.format(faker.date().birthday(1,2));
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         String url = "https://formy-project.herokuapp.com/form";
         driver.get(url);
@@ -66,6 +66,11 @@ public class WebFormytest {
         Select experience = new Select(selectExperiance);
         experience.selectByValue("2");
         System.out.println("6. Test Select 2-4 experience");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         // select calender
         driver.findElement(By.id("datepicker")).sendKeys(dob);
@@ -74,7 +79,7 @@ public class WebFormytest {
         driver.findElement(By.linkText("Submit")).click();
         System.out.println("8. Beshasil di submit");
         try {
-            Thread.sleep(3000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
